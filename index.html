@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Produto</title>
+</head>
+<body>
+    <h1>Cadastrar Produto</h1>
+    <form id="product-form">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="price">Preço:</label>
+        <input type="number" id="price" name="price" required><br><br>
+
+        <label for="description">Descrição:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <script>
+        document.getElementById('product-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const price = document.getElementById('price').value;
+            const description = document.getElementById('description').value;
+
+            const response = await fetch('http://localhost:5000/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, price, description }),
+            });
+
+            if (response.ok) {
+                alert('Produto cadastrado com sucesso!');
+            } else {
+                alert('Erro ao cadastrar produto');
+            }
+        });
+    </script>
+</body>
+</html>
